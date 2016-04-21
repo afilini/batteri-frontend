@@ -1,6 +1,6 @@
 <?PHP
 require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/config.php");
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+$root = realpath($_SERVER["DOCUMENT_ROOT"]) . $_CONFIG['root'];
 
 require_once("$root/rank/rank.php");
 
