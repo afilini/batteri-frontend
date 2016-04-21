@@ -7,7 +7,7 @@
  */
 
 $_CONFIG['db_name'] = 'gba';
-$_CONFIG['db_host'] = 'localhost';
+$_CONFIG['db_host'] = '127.0.0.1';
 $_CONFIG['db_user'] = 'gba';
 $_CONFIG['db_password'] = 'password';
 $_CONFIG['db_port'] = 3306;
