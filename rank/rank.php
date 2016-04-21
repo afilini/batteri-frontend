@@ -6,7 +6,8 @@
  * Time: 21:09
  */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]) . "/bcms";
+require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]) . $_CONFIG['root'];
 
 require_once("$root/libs/MysqliDb.php");
 require_once("$root/config.php");

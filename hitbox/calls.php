@@ -22,8 +22,9 @@ function isLive($channel_name)
             )
         )
     );
-    //$response = file_get_contents($url, false, $ctx);
-    $response = '{"media_is_live": false}';
+
+    $response = file_get_contents($url, false, $ctx);
+    //$response = '{"media_is_live": false}';
     $data = json_decode($response);
     return ($memoLive = isset($data->media_is_live) && $data->media_is_live == 1);
 }

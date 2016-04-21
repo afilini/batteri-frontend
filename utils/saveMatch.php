@@ -6,7 +6,8 @@
  * Time: 11:26
  */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]) . $_CONFIG['root'];
 
 require_once("../rank/rank.php");
 require_once('../rank/matches.php');

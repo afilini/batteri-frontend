@@ -6,10 +6,12 @@
  * Time: 10:32
  */
 
+require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]) . $_CONFIG['root'];
+
 require_once('../contest/nextContest.php');
 require_once('../rank/rank.php');
 require_once('../libs/MysqliDb.php');
-require_once('../config.php');
 
 date_default_timezone_set('Europe/Rome');
 
