@@ -6,7 +6,8 @@
  * Time: 08:23
  */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]) . "/bcms";
+require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]) . $_CONFIG['root'];
 
 require_once("$root/libs/MysqliDb.php");
 require_once("$root/config.php");
@@ -69,7 +70,7 @@ class Match
             //$add['time'] = date("d/m/Y G:i", $result['timestamp']);
 
             $add['time'] = $result['timestamp'];
-            $add['hitbox'] = $result['hitbox'];
+            $add['twitch'] = $result['hitbox'];
 
             $this->matches[] = $add;
         }

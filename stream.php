@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
 require_once('contest/nextContest.php');
 require_once('login/user.php');
 require_once('rank/rank.php');
-require_once('hitbox/calls.php');
+require_once('twitch/calls.php');
 
 $rank = new Rank();
 $me = isLoggedIn();
@@ -34,7 +34,7 @@ $me = isLoggedIn();
         <li><a href="index.php">:: home</a></li>
         <li><a href="rank.php">:: rank</a></li>
         <li><a href="risultati.php">:: risultati</a></li>
-        <li><a href="stream.php">:: stream hitbox</a></li>
+        <li><a href="stream.php">:: stream twitch</a></li>
         <?php
         if (!$me)
             echo "<li><a href=\"login.php\">:: login</a></li>";
@@ -61,9 +61,10 @@ $me = isLoggedIn();
         <div class="box_header">:: Prossimi Contest</div>
         <div class="box_content" style="font-size: 13px;">
             <?php
-            if (isLive('afilini'))
-                echo "<a href=\"stream.php\">In diretta ora!</a>";
-            else {
+            if (isLive('afilini')) {
+                echo "<a href=\"stream.php\">In diretta ora!";
+                echo '<img id="live_img" src="' . getLiveCoverURL(175, 125) . '" style="width: 175; height: 120"></a>';
+            } else {
                 $initTime = getNextContestTimestamp();
                 foreach ($rank->getMatches() as $partita) {
                     echo "<center>" . date("d/m/Y G:i", $initTime) . "</center>";
@@ -86,14 +87,14 @@ $me = isLoggedIn();
     <div class="box big">
         <div class="box_header">:: Live Stream</div>
         <div class="box_content">
-            <iframe width="576" height="360" src="http://www.hitbox.tv/embed/afilini" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://player.twitch.tv/?channel=afilini" width="576" height="360" frameborder="0" scrolling="no"></iframe>
         </div>
     </div>
 
     <div class="box big">
         <div class="box_header">:: Live Chat</div>
         <div class="box_content">
-            <iframe width="576" height="600" src="http://www.hitbox.tv/embedchat/afilini" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.twitch.tv/afilini/chat?popout=" frameborder="0" scrolling="no" width="576" height="600"></iframe>
         </div>
     </div>
 </div>

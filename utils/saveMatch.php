@@ -6,12 +6,12 @@
  * Time: 11:26
  */
 
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once(realpath($_SERVER["DOCUMENT_ROOT"]) . "/config.php");
+$root = realpath($_SERVER["DOCUMENT_ROOT"]) . $_CONFIG['root'];
 
 require_once("../rank/rank.php");
 require_once('../rank/matches.php');
 require_once("../libs/MysqliDb.php");
-require_once('../config.php');
 
 $punti = array(8, 6, 4, 2, 1, 0);
 $K = 16;
@@ -49,33 +49,13 @@ if (!isset($_POST['data']))
 $match = new Match();
 //$match->saveMatch($_POST['data']);
 
+$db->insert("matches", array("risultati" => $_POST['data']));
+
 $matchResult = json_decode($_POST['data']);
-$puntiFatti = array();
 
 $index = 0;
 foreach ($matchResult as $result) {
-    $puntiFatti[$result->name] = $punti[$index];
-    $index++;
-}
-
-//print_r($puntiFatti);
-
-$partecipanti = array_keys($puntiFatti);
-$query = $db->orderBy('punti');
-foreach ($partecipanti as $partecipante) {
-    $query = $query->orWhere('nickname', $partecipante);
-}
-
-$puntiPartecipanti = $query->get('users', null, array('nickname', 'punti', 'ID'));
-
-$index = 0;
-foreach ($puntiPartecipanti as $persona) {
-    $puntiAttesi = $punti[$index];
-    $differenzaPunti = ($puntiFatti[$persona['nickname']] - $puntiAttesi) * $K;
-    //echo "$persona[nickname] $puntiAttesi $differenzaPunti\n";
-
-    $db->where('ID', $persona['ID'])->update('users', array('punti' => $persona['punti'] + $differenzaPunti));
-
+    $db->rawQuery("UPDATE `users` SET punti = punti + ? WHERE nickname = ?", array($punti[$index], $result->name));
     $index++;
 }
 

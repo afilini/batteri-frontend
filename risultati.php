@@ -14,7 +14,7 @@ require_once('contest/nextContest.php');
 require_once('login/user.php');
 require_once('rank/matches.php');
 require_once('rank/rank.php');
-require_once('hitbox/calls.php');
+require_once('twitch/calls.php');
 
 $match = new Match();
 $rank = new Rank();
@@ -36,7 +36,7 @@ $me = isLoggedIn();
         <li><a href="index.php">:: home</a></li>
         <li><a href="rank.php">:: rank</a></li>
         <li><a href="risultati.php">:: risultati</a></li>
-        <li><a href="stream.php">:: stream hitbox</a></li>
+        <li><a href="stream.php">:: stream twitch</a></li>
         <?php
         if (!$me)
             echo "<li><a href=\"login.php\">:: login</a></li>";
@@ -63,9 +63,10 @@ $me = isLoggedIn();
         <div class="box_header">:: Prossimi Contest</div>
         <div class="box_content" style="font-size: 13px;">
             <?php
-            if (isLive('afilini'))
-                echo "<a href=\"stream.php\">In diretta ora!</a>";
-            else {
+            if (isLive('afilini')) {
+                echo "<a href=\"stream.php\">In diretta ora!";
+                echo '<img id="live_img" src="' . getLiveCoverURL(175, 125) . '" style="width: 175; height: 120"></a>';
+            } else {
                 $initTime = getNextContestTimestamp();
                 foreach ($rank->getMatches() as $partita) {
                     echo "<center>" . date("d/m/Y G:i", $initTime) . "</center>";
@@ -92,7 +93,7 @@ $me = isLoggedIn();
                 <?php
                 foreach ($match->getParsedMatches() as $partita) {
                     echo "<li style=\"margin-bottom: 20px; cursor: pointer;\">
-                        <a href=\"$partita[hitbox]\">$partita[time]</a>
+                        <a>$partita[time]</a>
                         <ul>";
 
                     $i = 1;
