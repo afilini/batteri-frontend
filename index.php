@@ -14,7 +14,7 @@ require_once('contest/nextContest.php');
 require_once('login/user.php');
 require_once('login/autoLogger.php');
 require_once('rank/rank.php');
-require_once('hitbox/calls.php');
+require_once('twitch/calls.php');
 
 $me = isLoggedIn();
 $rank = new Rank();
@@ -35,7 +35,7 @@ $rank = new Rank();
         <li><a href="index.php">:: home</a></li>
         <li><a href="rank.php">:: rank</a></li>
         <li><a href="risultati.php">:: risultati</a></li>
-        <li><a href="stream.php">:: stream hitbox</a></li>
+        <li><a href="stream.php">:: stream twitch</a></li>
         <?php
         if (!$me)
             echo "<li><a href=\"login.php\">:: login</a></li>";
@@ -62,9 +62,10 @@ $rank = new Rank();
         <div class="box_header">:: Prossimi Contest</div>
         <div class="box_content" style="font-size: 13px;">
             <?php
-            if (isLive('afilini'))
-                echo "<a href=\"stream.php\">In diretta ora!</a>";
-            else {
+            if (isLive('afilini')) {
+                echo "<a href=\"stream.php\">In diretta ora!";
+                echo '<img id="live_img" src="' . getLiveCoverURL(175, 125) . '" style="width: 175; height: 120"></a>'; // TODO: aggiungere azioni al passaggio del mouse
+            } else {
                 $initTime = getNextContestTimestamp();
                 foreach ($rank->getMatches() as $partita) {
                     echo "<center>" . date("d/m/Y G:i", $initTime) . "</center>";
@@ -91,8 +92,7 @@ $rank = new Rank();
             <div class="box_header">:: Live Stream</div>
             <div class="box_content">
                 Per accedere alla chat segui lo stream dalla <u><a href="stream.php">pagina dedicata</a></u>
-                <iframe style="margin-top: 4px;" width="576" height="360" src="http://www.hitbox.tv/embed/afilini"
-                        frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://player.twitch.tv/?channel=afilini" style="margin-top: 4px;" width="576" height="360" frameborder="0" scrolling="no"></iframe>
             </div>
         </div>
         <?php
@@ -102,10 +102,16 @@ $rank = new Rank();
     <div class="box big">
         <div class="box_header">:: Home</div>
         <div class="box_content">
-            ... Descrizione ...
+            Batteri Contest e' un ambiente online di simulazione di colonie di batteri sviluppati dalla community che
+            implementano diverse strategie per riuscire a colonizzare l'intero terreno di gara.
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var live_img = document.getElementById('live_img');
+
+</script>
 
 </BODY>
 </HTML>

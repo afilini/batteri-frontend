@@ -44,7 +44,7 @@ class Rank {
         $i = 0;
         foreach ($this->rank as $user) {
             if ($i % 6 == 0) {
-                if ($count - $i <= 3)
+                if ($count - $i < 3) // Se ci sono meno di 3 persone non creo la partita
                     break;
 
                 $matches[intval($i / 6)] = array();

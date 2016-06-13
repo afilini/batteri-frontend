@@ -1,15 +1,14 @@
-application: myapp
-version: alpha-001
 runtime: php55
 api_version: 1
 
 handlers:
-# Serve images as static resources.
-- url: /(.+\.(gif|png|jpg|css))$
+- url: /
+  script: index.php
+
+- url: /(.+\.(gif|png|jpg|css|ttf))
   static_files: \1
-  upload: .+\.(gif|png|jpg|css)$
+  upload: .+\.(gif|png|jpg|css|ttf)$
   application_readable: true
 
-# Serve php scripts.
-- url: /(.+\.php)$
+- url: /(.+\.php)
   script: \1

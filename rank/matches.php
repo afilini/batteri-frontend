@@ -70,7 +70,7 @@ class Match
             //$add['time'] = date("d/m/Y G:i", $result['timestamp']);
 
             $add['time'] = $result['timestamp'];
-            $add['hitbox'] = $result['hitbox'];
+            $add['twitch'] = $result['hitbox'];
 
             $this->matches[] = $add;
         }

@@ -23,9 +23,9 @@ $db = new MysqliDb (Array(
     'db' => $_CONFIG['db_name'],
     'port' => $_CONFIG['db_port']));
 
-$match = $db->orderBy('timestamp', 'ASC')->getOne('queue');
+$match = $db->where('timestamp', array(">=" => time()))->orderBy('timestamp', 'ASC')->getOne('queue');
 
-if (isset($match['ID']) && abs($match['timestamp'] - time()) <= 30) { // Se rientro nel minuto dell'inizio della gara
+if (isset($match['ID']) && abs($match['timestamp'] - time()) <= 60) { // Se rientro nel minuto dell'inizio della gara
     $obj = json_decode($match['data']);
 
     foreach($obj as $val) {
